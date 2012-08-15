@@ -1,0 +1,37 @@
+Installation of the tinydnssec patch
+====================================
+
+Requirements
+------------
+
+This patch is *not* against stock djbdns. Here's the minimal set of patches
+to install before the tinydnssec patch applies:
+
+1. http://www.fefe.de/dns/djbdns-1.05-test25.diff.bz2
+   Unfortunately, fefe refuses to name a license for this patch, which means
+   that I cannot redistribute it.
+
+2. A modified version of JdB-P's tinydns-alias-chain-truncation patch (see
+   http://homepage.ntlworld.com./jonathan.deboynepollard/Softwares/djbdns/tinydns-alias-chain-truncation.patch ).
+   I modified it so that it works together with fefe's IPv6 patch.
+
+3. My own local changes, unrelated to DNSSEC: djbdns-local.patch
+   This also requires the compiler option "-include unistd.h -include utime.h" 
+
+4. My own fixes to the Makefile, mostly IPv6-related: djbdns-ipv6-make.patch
+
+Build
+-----
+
+Add the compiler options to conf-cc, then run make.
+
+Test
+----
+
+run-tests.sh will sign test/data using keys from test/example*, then issue
+some queries using tinydns-get, i. e. without any networking involved.
+
+As root, start tinydns / axfrdns on a local address (127.0.0.3), then execute
+SERVER=127.0.0.3 run-tests.sh -t -u
+to test the same queries via tcp and udp.
+
