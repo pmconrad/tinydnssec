@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>DNSSEC for tinydns - Installation</title>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+
+<div id="menu">
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="howto.html">Howto</a></li>
+<li>Installation</li>
+</ul>
+</div>
+
+<div id="content">
+
+<h1>Installation of the tinydnssec patch</h1>
+
+<h2>Requirements</h2>
+
+<p>
+This patch is <b>not</b> against stock djbdns. Here's the minimal set of patches
+to install before the tinydnssec patch applies:
+</p>
+<ol>
+<li><a href="http://www.fefe.de/dns/">http://www.fefe.de/dns/</a>djbdns-1.05-test25.diff.bz2<br>
+   Unfortunately, fefe refuses to name a license for this patch, which means
+   that I cannot redistribute it.</li>
+<li>A modified version of <a href="http://homepage.ntlworld.com./jonathan.deboynepollard/Softwares/djbdns/">JdB-P</a>'s tinydns-alias-chain-truncation patch.<br>
+   I modified it so that it works together with fefe's IPv6 patch.</li>
+
+<li>My own local changes, unrelated to DNSSEC: djbdns-local.patch<br>
+   This also requires the compiler option "-include unistd.h -include utime.h".</li>
+
+<li>My own fixes to the Makefile, mostly IPv6-related: djbdns-ipv6-make.patch</li>
+</ol>
+
+<h2>Build</h2>
+
+<p>
+Add the compiler options to conf-cc, then run make.
+</p>
+
+<h2>Test</h2>
+
+<p>
+run-tests.sh will sign test/data using keys from test/example*, then issue
+some queries using tinydns-get, i. e. without any networking involved.
+<p>
+</p>
+As root, start tinydns / axfrdns on a local address (127.0.0.3), then execute<br>
+<code>SERVER=127.0.0.3 run-tests.sh -t -u</code><br>
+to test the same queries via tcp and udp.
+</p>
+
+</div>
+
+</body>
+</html>

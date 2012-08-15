@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>DNSSEC for tinydns</title>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+
+<div id="menu">
+<ul>
+<li>Home</li>
+<li><a href="howto.html">Howto</a></li>
+<li><a href="install.html">Installation</a></li>
+</ul>
+</div>
+
+<div id="content">
+
+<h1>DNSSEC for tinydns</h1>
+
+<p>
+This project adds DNSSEC support to D. J. Bernstein's
+<a href="http://cr.yp.to/djbdns.html">tinydns</a>.
+</p><p>
+It consists of two parts (mostly):
+</p>
+<ul>
+<li>tinydns-sign, a perl script for augmenting a tinydns-data file with
+  DNSSEC-related RRs, and</li>
+<li>a patch to tinydns / axfrdns to make them produce DNSSEC-authenticated
+  answers.</li>
+</ul>
+
+<p>
+The patch tries to preserve the behaviour of tinydns/axfrdns wrt non-DNSSEC
+queries, with three noteworthy exceptions:
+</p>
+
+<ul>
+<li>The interpretation of wildcard records now matches the description in
+  <a href="http://tools.ietf.org/html/rfc1034">RFC-1034</a> section 4.3.3.
+  Specifically, if there's a wildcard *.x and a
+  record for a.x, then a query for y.a.x will <b>not</b> be answered using the
+  wildcard (for a label 'a' and series of labels 'x' and 'y').<br>
+  This change is required for signed domains, because authentication of
+  negative responses requires a common understanding between client and
+  server about the meaning of wildcards.</li>
+<li>EDNS0 in queries will be honoured also for non-DNSSEC queries, i. e.
+  tinydns may produce answers exceeding 512 bytes. (There is a hard
+  limit of 4000 bytes, though.)<br>
+  This <b>can</b> lead to problems on IPv6 networks.</li>
+<li>TXT records are split into character-strings of 255 bytes, not 127.
+  This is not really a DNSSEC-related change, but this is kind of a FAQ and
+  tinydns-data and tinydns-sign must agree on how this is handled or the
+  generated RRSIG won't match.</li>
+</ul>
+
+<p>
+Be careful with publishing signed zones as a secondary nameserver: the
+modified tinydns/axfrdns require certain helper RRs in the database to
+simplify locating NSEC3 records. Without these helpers, tinydns cannot
+generate valid negative response nor valid wildcard responses.
+</p><p>
+Axfrdns <b>will</b> publish these helper RRs, other primaries will most
+likely <b>not</b>.
+</p>
+</div>
+
+</body>
+</html>

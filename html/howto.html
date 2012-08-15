@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>DNSSEC for tinydns</title>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+
+<div id="menu">
+<ul>
+<li><a href="index.html">Home</a></li>
+<li>Howto</li>
+<li><a href="install.html">Installation</a></li>
+</ul>
+</div>
+
+<div id="content">
+
+<h1>How-To</h1>
+
+<ol>
+<li><a href="install.html">Install</a> tinydns-sign and patched tinydns/axfrdns.</li>
+<li>Generate key(s). See the tinydns-sign manpage for details.<br>
+
+   It is common practice to have a "Key signing key" (KSK, with flags=257)
+   and a "Zone signing key" (ZSK, with flags=256). The KSK is used only for
+   signing the DNSKEY RRs, the ZSK is used for signing the rest. The KSK is
+   more difficult to change because it is used in the delegating domain's
+   referral, therefore it usually has more bits. The ZSK is used for signing
+   all the other records, and is therefore usually shorter and changed more
+   frequently.<br>
+
+   You should keep the keys in a safe place (outside the tinydns ROOT), e. g.
+   in a directory "keys" located above the ROOT.</li>
+
+<li>Add the K pseudo records from the key files to your tinydns-data file.
+   Also, add a P pseudo record for each signed zone.</li>
+
+<li>Adapt the Makefile to pipe your data file through tinydns-sign before
+   before running tinydns-data, e. g.
+<pre>
+data.cdb: data update
+	tinydns-sign ../keys/* <data >data.tmp
+	mv data.tmp data
+	tinydns-data
+	rm -f update
+
+update:
+	touch update
+</pre></li>
+<li>Run make.</li>
+<li>Set up a cronjob to periodically re-sign your data file before the
+   signatures expire.</li>
+<li><b>Test!</b> For example:
+  <ul>
+  <li>Use <code>dig axfr <em>domain</em> @<em>server</em></code> and validate the result with a dnssec zone
+     validator, like <a href="http://yazvs.verisignlabs.com/">yazvs</a>.</li>
+  <li>Use an online DNS or DNSSEC test tool. See
+<a href="http://www.bortzmeyer.org/tests-dns.html">here</a> for a list.</li>
+  </ul></li>
+<li>Read <a href="http://tools.ietf.org/html/rfc4641">RFC-4641</a> to get a
+   feeling for what is explicitly not called
+   "Best Current Practices". :-)<br>
+   In particular, think about key lifetime and how to do a key rollover.</li>
+<li>Sacrifice a few small animals to a deity of your choice. Get yourself a
+   drink for really tough guys, like
+   <a href="http://en.memory-alpha.org/wiki/Prune_juice">prune juice</a>.</li>
+<li>If you feel brave, contact your upstream delegator to publish DS records
+   for your zone.<br>
+   Note that this is a really good way to cut yourself off from the rest of the
+   internet. You've been warned, so don't blame me.</li>
+</ol>
+</div>
+
+</body>
+</html>
