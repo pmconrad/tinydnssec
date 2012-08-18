@@ -1,5 +1,5 @@
 body {
-	font-face: helvetica,arial,sans-serif;
+	font-family: helvetica,arial,sans-serif;
 	font-size: 10pt;
 }
 
@@ -16,7 +16,7 @@ a {
 }
 
 #content {
-	margin-left: 9em;
+	margin-left: 9.5em;
 	vertical-align:top;
 }
 
