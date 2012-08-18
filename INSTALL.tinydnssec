@@ -23,7 +23,23 @@ to install before the tinydnssec patch applies:
 Build
 -----
 
-Add the compiler options to conf-cc, then run make.
+1. Download and unpack the original djbdns sources from
+   http://cr.yp.to/djbdns/install.html .
+2. Download and apply the patches listed above.
+3. Download and unpack http://tinydnssec.org/tinydnssec-1.05-1.tar.gz in
+   the top-level source directory.
+4. Apply djbdns-1.05-dnssec.patch.
+5. Add the compiler options mentioned above to conf-cc.
+6. make
+7. Optional: run tests (see below).
+8. Install djbdns as per original instructions, or whatever your preferred
+   method is.
+9. Install tinydns-sign.pl in your preferred location for system 
+   executables, like e. g. /usr/sbin .
+10.Optional: create a manpage for tinydns-sign using e. g.
+     pod2man -s 8 -c '' "tinydns-sign.pl" >tinydns-sign.8
+   then install it in your preferred location for system manpages.
+
 
 Test
 ----
