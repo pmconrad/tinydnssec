@@ -52,10 +52,7 @@ to install before the tinydnssec patch applies:
 <li>A modified version of <a href="http://homepage.ntlworld.com./jonathan.deboynepollard/Softwares/djbdns/">JdB-P</a>'s tinydns-alias-chain-truncation patch.<br>
    I modified it so that it works together with fefe's IPv6 patch.</li>
 
-<li>My own local changes, unrelated to DNSSEC: djbdns-local.patch<br>
-   This also requires the compiler option "-include unistd.h -include utime.h".</li>
-
-<li>My own fixes to the Makefile, mostly IPv6-related: djbdns-ipv6-make.patch</li>
+<li>My own fixes to the Makefile (IPv6-related): djbdns-ipv6-make.patch</li>
 </ol>
 
 <h2>Build</h2>
@@ -66,8 +63,8 @@ to install before the tinydnssec patch applies:
 <li>Download and unpack <a href="tinydnssec-1.05-1.tar.gz">tinydnssec</a> in
     the top-level source directory.</li>
 <li>Apply djbdns-1.05-dnssec.patch.</li>
-<li>Add the compiler options mentioned above to conf-cc.</li>
-<li><code>make</code></li>
+<li>Install as per
+    <a href="http://cr.yp.to/djbdns/install.html">usual instructions</a>.</li>
 <li>Optional: run tests (see below).</li>
 <li>Install djbdns as per original instructions, or whatever your preferred
     method is.</li>
