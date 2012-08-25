@@ -1306,7 +1306,7 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
 +  return addNSEC3Cover(name, control, 0);
 +}
 +
- static int doit1(char **pqname,char qtype[2])
+ static int doit(char *q,char qtype[2])
  {
    unsigned int bpos;
 @@ -158,6 +288,7 @@
@@ -1371,21 +1371,6 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
  	addr6ttl = ttl;
  	i = dns_random(addr6num + 1);
  	if (i < 8) {
-@@ -206,9 +360,12 @@
-       else if (byte_equal(type,2,DNS_T_CNAME)) {
- 	if (!doname()) return 0;
-         if (byte_diff(type,2,qtype)) {
--	  response_rfinish(RESPONSE_ANSWER);
- 	  if (!dns_domain_copy(pqname,d1)) return 0 ;
--	  goto RESTART ;
-+	  if (had_rrsig) {
-+	    response_rfinish(RESPONSE_ANSWER);
-+	    goto RESTART ;
-+	  }
-+	  had_cname = 1;
- 	}
-       }
-       else if (byte_equal(type,2,DNS_T_MX)) {
 @@ -221,10 +378,25 @@
  	if (!dobytes(20)) return 0;
          flaggavesoa = 1;
