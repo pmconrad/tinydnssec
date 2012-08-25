@@ -29,7 +29,7 @@ queries, with three noteworthy exceptions:
   This *can* lead to problems on IPv6 networks.
 
 - TXT records are split into character-strings of 255 bytes, not 127.
-  This is not really a DNSSEC-related change, but this is kind of a FAQ and
+  This is not really a DNSSEC-related change, but this is kind of a FAQ [5] and
   tinydns-data and tinydns-sign must agree on how this is handled or the
   generated RRSIG won't match.
 
@@ -105,3 +105,4 @@ update:
 [2] http://www.bortzmeyer.org/tests-dns.html
 [3] http://tools.ietf.org/html/rfc4641
 [4] http://en.memory-alpha.org/wiki/Prune_juice
+[5] http://marc.info/?l=djbdns&m=120848817816960&w=2

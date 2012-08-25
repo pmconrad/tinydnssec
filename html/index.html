@@ -71,7 +71,8 @@ queries, with three noteworthy exceptions:
   limit of 4000 bytes, though.)<br>
   This <b>can</b> lead to problems on IPv6 networks.</li>
 <li>TXT records are split into character-strings of 255 bytes, not 127.
-  This is not really a DNSSEC-related change, but this is kind of a FAQ and
+  This is not really a DNSSEC-related change, but this is kind of a
+  <a href="http://marc.info/?l=djbdns&m=120848817816960&w=2">FAQ</a> and
   tinydns-data and tinydns-sign must agree on how this is handled or the
   generated RRSIG won't match.</li>
 </ul>
