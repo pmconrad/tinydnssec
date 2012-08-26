@@ -13,7 +13,7 @@ It consists of two parts (mostly):
   answers.
 
 The patch tries to preserve the behaviour of tinydns/axfrdns wrt non-DNSSEC
-queries, with three noteworthy exceptions:
+queries, with these noteworthy exceptions:
 
 - The interpretation of wildcard records now matches the description in
   RFC-1034 section 4.3.3. Specifically, if there's a wildcard *.x and a
