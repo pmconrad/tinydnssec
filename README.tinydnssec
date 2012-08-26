@@ -33,6 +33,11 @@ queries, with three noteworthy exceptions:
   tinydns-data and tinydns-sign must agree on how this is handled or the
   generated RRSIG won't match.
 
+- The patch includes a fix for the broken CNAME handling in tinydns. See [6]
+  for a description of the problem. The patch referenced by that description
+  conflicts with fefe's IPv6 patch and requires further modifications for
+  DNSSEC, so I decided to roll my own solution.
+
 Be careful with publishing signed zones as a secondary nameserver: the
 modified tinydns/axfrdns require certain helper RRs in the database to
 simplify locating NSEC3 records. Without these helpers, tinydns cannot
@@ -106,3 +111,4 @@ update:
 [3] http://tools.ietf.org/html/rfc4641
 [4] http://en.memory-alpha.org/wiki/Prune_juice
 [5] http://marc.info/?l=djbdns&m=120848817816960&w=2
+[6] http://homepage.ntlworld.com/jonathan.deboynepollard/FGA/djbdns-problems.html#tinydns-alias-chain-truncation

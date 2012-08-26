@@ -75,6 +75,12 @@ queries, with three noteworthy exceptions:
   <a href="http://marc.info/?l=djbdns&m=120848817816960&w=2">FAQ</a> and
   tinydns-data and tinydns-sign must agree on how this is handled or the
   generated RRSIG won't match.</li>
+<li>The patch includes a fix for the
+  <a href="http://homepage.ntlworld.com/jonathan.deboynepollard/FGA/djbdns-problems.html#tinydns-alias-chain-truncation">broken CNAME handling</a>
+  in tinydns.  The
+  <a href="http://homepage.ntlworld.com/jonathan.deboynepollard/Softwares/djbdns/#content-alias-chain-truncation">usual patch</a>
+  for this conflicts with fefe's IPv6 patch and requires further modifications
+  for DNSSEC, so I decided to roll my own solution.
 </ul>
 
 <p>

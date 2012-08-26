@@ -32,7 +32,7 @@ Zexample:ns1.example:bugs.x.w.example:1081539377:3600:300:3600000:3600:3600::
 
 
 # This one is somewhat related to RFC-2308.
-Zexample.xx:ns1.example.xx:bugs.x.w.example.xx:1081539377:3600:300:3600000:3600
+Zexample.xx:ns1.example.xx:bugs.x.w.example.xx:1081539377:3600:300:3600000:3600:2500
 &example.xx:192.0.2.1:ns1.example.xx
 &example.xx:192.0.2.2:ns2.example.xx
 #Kexample.xx:256:3:7:AwEAAZvSuWicF6oQ8QarGTQ84GDgYD3c12nrz/K2PQ98eCy0SKOZ+p4662QxkUGTmrxoUSGVlPp2arYXNs5AVf+ggt9zpb+ZSLV18Z152kAA6iHXVrwTbUZX1Eg4IqxzrSX2/jqs2dqQF7dDZcNV7xNpKfKDTW5J5d7vbkhcM8/xxb1p:::

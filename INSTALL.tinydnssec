@@ -11,11 +11,7 @@ to install before the tinydnssec patch applies:
    Unfortunately, fefe refuses to name a license for this patch, which means
    that I cannot redistribute it.
 
-2. A modified version of JdB-P's tinydns-alias-chain-truncation patch (see
-   http://homepage.ntlworld.com./jonathan.deboynepollard/Softwares/djbdns/tinydns-alias-chain-truncation.patch ).
-   I modified it so that it works together with fefe's IPv6 patch.
-
-3. My own fixes to the Makefile (IPv6-related): djbdns-ipv6-make.patch
+2. My own fixes to the Makefile (IPv6-related): djbdns-ipv6-make.patch
 
 Build
 -----

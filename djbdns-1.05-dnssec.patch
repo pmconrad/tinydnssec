@@ -1,6 +1,6 @@
-diff -rNU3 djbdns-1.05/axfrdns.c djbdns-1.05-dnssec/axfrdns.c
---- djbdns-1.05/axfrdns.c	2012-07-31 15:12:17.000000000 +0200
-+++ djbdns-1.05-dnssec/axfrdns.c	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/axfrdns.c djbdns-1.05-dnssec/axfrdns.c
+--- djbdns-1.05-ipv6/axfrdns.c	2012-08-26 21:32:29.000000000 +0200
++++ djbdns-1.05-dnssec/axfrdns.c	2012-08-25 23:45:48.000000000 +0200
 @@ -23,6 +23,7 @@
  #include "response.h"
  #include "ip6.h"
@@ -19,9 +19,9 @@ diff -rNU3 djbdns-1.05/axfrdns.c djbdns-1.05-dnssec/axfrdns.c
      qlog(ip,port,header,zone,qtype," ");
  
      if (byte_equal(qtype,2,DNS_T_AXFR)) {
-diff -rNU3 djbdns-1.05/base32hex.c djbdns-1.05-dnssec/base32hex.c
---- djbdns-1.05/base32hex.c	1970-01-01 01:00:00.000000000 +0100
-+++ djbdns-1.05-dnssec/base32hex.c	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/base32hex.c djbdns-1.05-dnssec/base32hex.c
+--- djbdns-1.05-ipv6/base32hex.c	1970-01-01 01:00:00.000000000 +0100
++++ djbdns-1.05-dnssec/base32hex.c	2012-08-25 23:45:48.000000000 +0200
 @@ -0,0 +1,70 @@
 +/* (C) 2012 Peter Conrad <conrad@quisquis.de>
 + *
@@ -93,9 +93,9 @@ diff -rNU3 djbdns-1.05/base32hex.c djbdns-1.05-dnssec/base32hex.c
 +}
 +
 +#endif
-diff -rNU3 djbdns-1.05/base32hex.h djbdns-1.05-dnssec/base32hex.h
---- djbdns-1.05/base32hex.h	1970-01-01 01:00:00.000000000 +0100
-+++ djbdns-1.05-dnssec/base32hex.h	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/base32hex.h djbdns-1.05-dnssec/base32hex.h
+--- djbdns-1.05-ipv6/base32hex.h	1970-01-01 01:00:00.000000000 +0100
++++ djbdns-1.05-dnssec/base32hex.h	2012-08-25 23:45:48.000000000 +0200
 @@ -0,0 +1,8 @@
 +#ifndef _BASE32_HEX_H
 +#define _BASE32_HEX_H
@@ -105,9 +105,9 @@ diff -rNU3 djbdns-1.05/base32hex.h djbdns-1.05-dnssec/base32hex.h
 +extern unsigned int base32hex(char *out, uint8_t *in, unsigned int len);
 +
 +#endif
-diff -rNU3 djbdns-1.05/dns.h djbdns-1.05-dnssec/dns.h
---- djbdns-1.05/dns.h	2012-07-31 15:12:17.000000000 +0200
-+++ djbdns-1.05-dnssec/dns.h	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/dns.h djbdns-1.05-dnssec/dns.h
+--- djbdns-1.05-ipv6/dns.h	2012-08-26 21:32:29.000000000 +0200
++++ djbdns-1.05-dnssec/dns.h	2012-08-25 23:45:48.000000000 +0200
 @@ -20,8 +20,17 @@
  #define DNS_T_SIG "\0\30"
  #define DNS_T_KEY "\0\31"
@@ -126,9 +126,9 @@ diff -rNU3 djbdns-1.05/dns.h djbdns-1.05-dnssec/dns.h
  
  struct dns_transmit {
    char *query; /* 0, or dynamically allocated */
-diff -rNU3 djbdns-1.05/edns0.c djbdns-1.05-dnssec/edns0.c
---- djbdns-1.05/edns0.c	1970-01-01 01:00:00.000000000 +0100
-+++ djbdns-1.05-dnssec/edns0.c	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/edns0.c djbdns-1.05-dnssec/edns0.c
+--- djbdns-1.05-ipv6/edns0.c	1970-01-01 01:00:00.000000000 +0100
++++ djbdns-1.05-dnssec/edns0.c	2012-08-25 23:45:48.000000000 +0200
 @@ -0,0 +1,30 @@
 +#include "dns.h"
 +#include "edns0.h"
@@ -160,9 +160,9 @@ diff -rNU3 djbdns-1.05/edns0.c djbdns-1.05-dnssec/edns0.c
 +  }
 +  return pos;
 +}
-diff -rNU3 djbdns-1.05/edns0.h djbdns-1.05-dnssec/edns0.h
---- djbdns-1.05/edns0.h	1970-01-01 01:00:00.000000000 +0100
-+++ djbdns-1.05-dnssec/edns0.h	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/edns0.h djbdns-1.05-dnssec/edns0.h
+--- djbdns-1.05-ipv6/edns0.h	1970-01-01 01:00:00.000000000 +0100
++++ djbdns-1.05-dnssec/edns0.h	2012-08-25 23:45:48.000000000 +0200
 @@ -0,0 +1,7 @@
 +#ifndef _EDNS0_H
 +
@@ -171,9 +171,9 @@ diff -rNU3 djbdns-1.05/edns0.h djbdns-1.05-dnssec/edns0.h
 +extern unsigned int check_edns0(const char *, const char *, const int, unsigned int);
 +
 +#endif
-diff -rNU3 djbdns-1.05/Makefile djbdns-1.05-dnssec/Makefile
---- djbdns-1.05/Makefile	2012-07-31 15:12:17.000000000 +0200
-+++ djbdns-1.05-dnssec/Makefile	2012-07-31 15:17:37.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/Makefile djbdns-1.05-dnssec/Makefile
+--- djbdns-1.05-ipv6/Makefile	2012-08-26 21:32:46.000000000 +0200
++++ djbdns-1.05-dnssec/Makefile	2012-08-25 23:45:48.000000000 +0200
 @@ -53,10 +53,10 @@
  axfrdns: \
  load axfrdns.o iopause.o droproot.o tdlookup.o response.o qlog.o \
@@ -375,9 +375,9 @@ diff -rNU3 djbdns-1.05/Makefile djbdns-1.05-dnssec/Makefile
  clean:
 -	rm -f `cat TARGETS`
 +	rm -f `cat TARGETS` test/[ot]*
-diff -rNU3 djbdns-1.05/parsetype.c djbdns-1.05-dnssec/parsetype.c
---- djbdns-1.05/parsetype.c	2001-02-11 22:11:45.000000000 +0100
-+++ djbdns-1.05-dnssec/parsetype.c	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/parsetype.c djbdns-1.05-dnssec/parsetype.c
+--- djbdns-1.05-ipv6/parsetype.c	2001-02-11 22:11:45.000000000 +0100
++++ djbdns-1.05-dnssec/parsetype.c	2012-08-25 23:45:48.000000000 +0200
 @@ -24,6 +24,8 @@
    else if (case_equals(s,"key")) byte_copy(type,2,DNS_T_KEY);
    else if (case_equals(s,"aaaa")) byte_copy(type,2,DNS_T_AAAA);
@@ -387,9 +387,9 @@ diff -rNU3 djbdns-1.05/parsetype.c djbdns-1.05-dnssec/parsetype.c
    else
      return 0;
  
-diff -rNU3 djbdns-1.05/printpacket.c djbdns-1.05-dnssec/printpacket.c
---- djbdns-1.05/printpacket.c	2001-02-11 22:11:45.000000000 +0100
-+++ djbdns-1.05-dnssec/printpacket.c	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/printpacket.c djbdns-1.05-dnssec/printpacket.c
+--- djbdns-1.05-ipv6/printpacket.c	2001-02-11 22:11:45.000000000 +0100
++++ djbdns-1.05-dnssec/printpacket.c	2012-08-25 23:45:48.000000000 +0200
 @@ -5,6 +5,7 @@
  #include "dns.h"
  #include "printrecord.h"
@@ -408,9 +408,9 @@ diff -rNU3 djbdns-1.05/printpacket.c djbdns-1.05-dnssec/printpacket.c
        X(" ")
        if (!dns_domain_todot_cat(out,d)) return 0;
      }
-diff -rNU3 djbdns-1.05/printrecord.c djbdns-1.05-dnssec/printrecord.c
---- djbdns-1.05/printrecord.c	2012-07-31 15:12:17.000000000 +0200
-+++ djbdns-1.05-dnssec/printrecord.c	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/printrecord.c djbdns-1.05-dnssec/printrecord.c
+--- djbdns-1.05-ipv6/printrecord.c	2012-08-26 21:32:29.000000000 +0200
++++ djbdns-1.05-dnssec/printrecord.c	2012-08-25 23:45:48.000000000 +0200
 @@ -5,9 +5,25 @@
  #include "dns.h"
  #include "printrecord.h"
@@ -592,9 +592,9 @@ diff -rNU3 djbdns-1.05/printrecord.c djbdns-1.05-dnssec/printrecord.c
  
    if (!stralloc_cats(out,"\n")) return 0;
    if (pos != newpos) { errno = error_proto; return 0; }
-diff -rNU3 djbdns-1.05/printtype.c djbdns-1.05-dnssec/printtype.c
---- djbdns-1.05/printtype.c	1970-01-01 01:00:00.000000000 +0100
-+++ djbdns-1.05-dnssec/printtype.c	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/printtype.c djbdns-1.05-dnssec/printtype.c
+--- djbdns-1.05-ipv6/printtype.c	1970-01-01 01:00:00.000000000 +0100
++++ djbdns-1.05-dnssec/printtype.c	2012-08-25 23:45:48.000000000 +0200
 @@ -0,0 +1,32 @@
 +#include "byte.h"
 +#include "dns.h"
@@ -628,9 +628,9 @@ diff -rNU3 djbdns-1.05/printtype.c djbdns-1.05-dnssec/printtype.c
 +  uint16_unpack_big(type,&u16);
 +  return stralloc_catulong0(out,u16,0);
 +}
-diff -rNU3 djbdns-1.05/printtype.h djbdns-1.05-dnssec/printtype.h
---- djbdns-1.05/printtype.h	1970-01-01 01:00:00.000000000 +0100
-+++ djbdns-1.05-dnssec/printtype.h	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/printtype.h djbdns-1.05-dnssec/printtype.h
+--- djbdns-1.05-ipv6/printtype.h	1970-01-01 01:00:00.000000000 +0100
++++ djbdns-1.05-dnssec/printtype.h	2012-08-25 23:45:48.000000000 +0200
 @@ -0,0 +1,8 @@
 +#ifndef _PRINTTYPE_H
 +#define _PRINTTYPE_H
@@ -640,9 +640,9 @@ diff -rNU3 djbdns-1.05/printtype.h djbdns-1.05-dnssec/printtype.h
 +extern int printtype(stralloc *, const char *);
 +
 +#endif
-diff -rNU3 djbdns-1.05/response.c djbdns-1.05-dnssec/response.c
---- djbdns-1.05/response.c	2001-02-11 22:11:45.000000000 +0100
-+++ djbdns-1.05-dnssec/response.c	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/response.c djbdns-1.05-dnssec/response.c
+--- djbdns-1.05-ipv6/response.c	2001-02-11 22:11:45.000000000 +0100
++++ djbdns-1.05-dnssec/response.c	2012-08-25 23:45:48.000000000 +0200
 @@ -5,6 +5,8 @@
  
  char response[65535];
@@ -652,9 +652,9 @@ diff -rNU3 djbdns-1.05/response.c djbdns-1.05-dnssec/response.c
  static unsigned int tctarget;
  
  #define NAMES 100
-diff -rNU3 djbdns-1.05/response.h djbdns-1.05-dnssec/response.h
---- djbdns-1.05/response.h	2001-02-11 22:11:45.000000000 +0100
-+++ djbdns-1.05-dnssec/response.h	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/response.h djbdns-1.05-dnssec/response.h
+--- djbdns-1.05-ipv6/response.h	2001-02-11 22:11:45.000000000 +0100
++++ djbdns-1.05-dnssec/response.h	2012-08-25 23:45:48.000000000 +0200
 @@ -5,6 +5,8 @@
  
  extern char response[];
@@ -664,9 +664,9 @@ diff -rNU3 djbdns-1.05/response.h djbdns-1.05-dnssec/response.h
  
  extern int response_query(const char *,const char *,const char *);
  extern void response_nxdomain(void);
-diff -rNU3 djbdns-1.05/server.c djbdns-1.05-dnssec/server.c
---- djbdns-1.05/server.c	2012-07-31 15:12:17.000000000 +0200
-+++ djbdns-1.05-dnssec/server.c	2012-07-31 15:14:11.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/server.c djbdns-1.05-dnssec/server.c
+--- djbdns-1.05-ipv6/server.c	2012-08-26 21:32:29.000000000 +0200
++++ djbdns-1.05-dnssec/server.c	2012-08-25 23:45:48.000000000 +0200
 @@ -1,3 +1,4 @@
 +#include "edns0.h"
  #include "byte.h"
@@ -691,9 +691,9 @@ diff -rNU3 djbdns-1.05/server.c djbdns-1.05-dnssec/server.c
  	socket_send6(udp53[i],response,response_len,ip,port,ifid);
  	/* may block for buffer space; if it fails, too bad */
        }
-diff -rNU3 djbdns-1.05/sha1.c djbdns-1.05-dnssec/sha1.c
---- djbdns-1.05/sha1.c	1970-01-01 01:00:00.000000000 +0100
-+++ djbdns-1.05-dnssec/sha1.c	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/sha1.c djbdns-1.05-dnssec/sha1.c
+--- djbdns-1.05-ipv6/sha1.c	1970-01-01 01:00:00.000000000 +0100
++++ djbdns-1.05-dnssec/sha1.c	2012-08-25 23:45:48.000000000 +0200
 @@ -0,0 +1,385 @@
 +/*
 +SHA-1 in C
@@ -1080,9 +1080,9 @@ diff -rNU3 djbdns-1.05/sha1.c djbdns-1.05-dnssec/sha1.c
 +    return(0);
 +}
 +#endif /* TEST */
-diff -rNU3 djbdns-1.05/sha1.h djbdns-1.05-dnssec/sha1.h
---- djbdns-1.05/sha1.h	1970-01-01 01:00:00.000000000 +0100
-+++ djbdns-1.05-dnssec/sha1.h	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/sha1.h djbdns-1.05-dnssec/sha1.h
+--- djbdns-1.05-ipv6/sha1.h	1970-01-01 01:00:00.000000000 +0100
++++ djbdns-1.05-dnssec/sha1.h	2012-08-25 23:45:48.000000000 +0200
 @@ -0,0 +1,29 @@
 +/* public api for steve reid's public domain SHA-1 implementation */
 +/* this file is in the public domain */
@@ -1113,9 +1113,9 @@ diff -rNU3 djbdns-1.05/sha1.h djbdns-1.05-dnssec/sha1.h
 +#endif
 +
 +#endif /* __SHA1_H */
-diff -rNU3 djbdns-1.05/TARGETS djbdns-1.05-dnssec/TARGETS
---- djbdns-1.05/TARGETS	2012-07-31 15:12:17.000000000 +0200
-+++ djbdns-1.05-dnssec/TARGETS	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/TARGETS djbdns-1.05-dnssec/TARGETS
+--- djbdns-1.05-ipv6/TARGETS	2012-08-26 21:32:29.000000000 +0200
++++ djbdns-1.05-dnssec/TARGETS	2012-08-25 23:45:48.000000000 +0200
 @@ -240,3 +240,8 @@
  socket_accept6.o
  socket_connect6.o
@@ -1125,9 +1125,9 @@ diff -rNU3 djbdns-1.05/TARGETS djbdns-1.05-dnssec/TARGETS
 +base32hex.o
 +printtype.o
 +edns0.o
-diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
---- djbdns-1.05/tdlookup.c	2012-07-31 15:12:17.000000000 +0200
-+++ djbdns-1.05-dnssec/tdlookup.c	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
+--- djbdns-1.05-ipv6/tdlookup.c	2012-08-26 21:32:29.000000000 +0200
++++ djbdns-1.05-dnssec/tdlookup.c	2012-08-26 21:34:57.000000000 +0200
 @@ -10,6 +10,9 @@
  #include "response.h"
  #include "ip6.h"
@@ -1147,11 +1147,12 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
  static char clientloc[2];
  static struct tai now;
  static struct cdb c;
-@@ -44,10 +47,17 @@
+@@ -44,10 +47,18 @@
  static unsigned int dpos;
  static char type[2];
  static uint32 ttl;
 +static char *nsec3;
++static char *cname = 0;
  
 +/* returns -1 on failure,
 + * returns 0 on not found
@@ -1166,7 +1167,7 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
    char ch;
    struct tai cutoff;
    char ttd[8];
-@@ -57,7 +67,9 @@
+@@ -57,7 +68,9 @@
  
    for (;;) {
      r = cdb_findnext(&c,d,dns_domain_length(d));
@@ -1177,7 +1178,7 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
      dlen = cdb_datalen(&c);
      if (dlen > sizeof data) return -1;
      if (cdb_read(&c,data,dlen,cdb_datapos(&c)) == -1) return -1;
-@@ -68,6 +80,7 @@
+@@ -68,6 +81,7 @@
        dpos = dns_packet_copy(data,dlen,dpos,recordloc,2); if (!dpos) return -1;
        if (byte_diff(recordloc,2,clientloc)) continue;
      }
@@ -1185,7 +1186,7 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
      if (flagwild != (ch == '*')) continue;
      dpos = dns_packet_copy(data,dlen,dpos,ttlstr,4); if (!dpos) return -1;
      uint32_unpack_big(ttlstr,&ttl);
-@@ -105,6 +118,123 @@
+@@ -105,6 +119,123 @@
    return response_addname(d1);
  }
  
@@ -1309,7 +1310,25 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
  static int doit(char *q,char qtype[2])
  {
    unsigned int bpos;
-@@ -158,6 +288,7 @@
+@@ -118,6 +249,7 @@
+   int r;
+   int flagns;
+   int flagauthoritative;
++  char *flagcname;
+   char x[20];
+   uint16 u16;
+   char addr[8][4];
+@@ -139,11 +271,16 @@
+       if (byte_equal(type,2,DNS_T_NS)) flagns = 1;
+     }
+     if (flagns) break;
+-    if (!*control) return 0; /* q is not within our bailiwick */
++    if (!*control) {
++      if (!cname) return 0; /* q is not within our bailiwick */
++      response[2] &= ~4; /* CNAME chain ends in external reference */
++      return 1;
++    }
+     control += *control;
      control += 1;
    }
  
@@ -1317,20 +1336,20 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
    if (!flagauthoritative) {
      response[2] &= ~4;
      goto AUTHORITY; /* q is in a child zone */
-@@ -166,18 +297,41 @@
+@@ -152,7 +289,11 @@
  
    flaggavesoa = 0;
    flagfound = 0;
 -  wild = q;
++  flagcname = 0;
 +  if (nsec3) {
 +    alloc_free(nsec3);
 +    nsec3 = 0;
 +  }
  
    for (;;) {
-+    int had_cname = 0, had_rrsig = 0;
      addrnum = addr6num = 0;
-     addrttl = addr6ttl = 0;
+@@ -160,10 +301,29 @@
      cdb_findstart(&c);
      while (r = find(wild,wild != q)) {
        if (r == -1) return 0;
@@ -1362,7 +1381,7 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
  	addrttl = ttl;
  	i = dns_random(addrnum + 1);
  	if (i < 8) {
-@@ -188,7 +342,7 @@
+@@ -174,7 +334,7 @@
  	if (addrnum < 1000000) ++addrnum;
  	continue;
        }
@@ -1371,7 +1390,17 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
  	addr6ttl = ttl;
  	i = dns_random(addr6num + 1);
  	if (i < 8) {
-@@ -221,10 +378,25 @@
+@@ -188,6 +348,9 @@
+       if (!response_rstart(q,type,ttl)) return 0;
+       if (byte_equal(type,2,DNS_T_NS) || byte_equal(type,2,DNS_T_CNAME) || byte_equal(type,2,DNS_T_PTR)) {
+ 	if (!doname()) return 0;
++	if (byte_equal(type,2,DNS_T_CNAME) && byte_diff(qtype,2,DNS_T_CNAME)) {
++	  if (!dns_domain_copy(&flagcname,d1)) return 0;
++	}
+       }
+       else if (byte_equal(type,2,DNS_T_MX)) {
+ 	if (!dobytes(2)) return 0;
+@@ -199,10 +362,18 @@
  	if (!dobytes(20)) return 0;
          flaggavesoa = 1;
        }
@@ -1381,13 +1410,6 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
 +	if (!dobytes(18)) return 0;
 +	if (!doname()) return 0;
 +        if (!response_addbytes(data + dpos,dlen - dpos)) return 0;
-+        if (byte_equal(sigtype,2,DNS_T_CNAME)) {
-+	  if (had_cname) {
-+	    response_rfinish(RESPONSE_ANSWER);
-+	    goto RESTART ;
-+	  }
-+	  had_rrsig = 1;
-+	}
 +      }
        else
          if (!response_addbytes(data + dpos,dlen - dpos)) return 0;
@@ -1397,7 +1419,24 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
      for (i = 0;i < addrnum;++i)
        if (i < 8) {
  	if (!response_rstart(q,DNS_T_A,addrttl)) return 0;
-@@ -252,22 +424,49 @@
+@@ -223,6 +394,16 @@
+     wild += 1;
+   }
+ 
++  if (flagcname) {
++    if (response[RESPONSE_ANSWER+1] >= 100) {
++      dns_domain_free(&flagcname); /* most likely a loop */
++      return 0;
++    }
++    if (cname) dns_domain_free(&cname);
++    cname = flagcname;
++    return doit(cname, qtype);
++  }
++
+   if (!flagfound)
+     response_nxdomain();
+ 
+@@ -230,22 +411,49 @@
    AUTHORITY:
    aupos = response_len;
  
@@ -1439,11 +1478,11 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
 +      if (flagfound && nsec3) { /* NODATA */
 +	if (!addNSEC3(nsec3)) return 0;
 +	if (wild != q) { /* Wildcard NODATA */
-+	  if (!addClosestEncloserProof(*pqname, control, 0)) return 0;
++	  if (!addClosestEncloserProof(q, control, 0)) return 0;
 +	}
 +      }
 +      else { /* NXDOMAIN, or query for NSEC3 owner name */
-+	if (!addClosestEncloserProof(*pqname, control, 1)) return 0;
++	if (!addClosestEncloserProof(q, control, 1)) return 0;
        }
      }
    }
@@ -1459,7 +1498,7 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
        cdb_findstart(&c);
        while (r = find(control,0)) {
          if (r == -1) return 0;
-@@ -276,10 +475,33 @@
+@@ -254,10 +462,33 @@
  	  if (!doname()) return 0;
            response_rfinish(RESPONSE_AUTHORITY);
          }
@@ -1493,7 +1532,7 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
  
    bpos = anpos;
    while (bpos < arpos) {
-@@ -287,25 +509,33 @@
+@@ -265,25 +496,33 @@
      bpos = dns_packet_copy(response,arpos,bpos,x,10); if (!bpos) return 0;
      if (byte_equal(x,2,DNS_T_NS) || byte_equal(x,2,DNS_T_MX)) {
        if (byte_equal(x,2,DNS_T_NS)) {
@@ -1534,7 +1573,7 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
          }
        }
      }
-@@ -313,10 +543,10 @@
+@@ -291,10 +530,10 @@
      bpos += u16;
    }
  
@@ -1547,9 +1586,19 @@ diff -rNU3 djbdns-1.05/tdlookup.c djbdns-1.05-dnssec/tdlookup.c
        byte_zero(response + RESPONSE_AUTHORITY,2);
        response_len = aupos;
      }
-diff -rNU3 djbdns-1.05/tinydns-data.c djbdns-1.05-dnssec/tinydns-data.c
---- djbdns-1.05/tinydns-data.c	2012-07-31 15:12:17.000000000 +0200
-+++ djbdns-1.05-dnssec/tinydns-data.c	2012-07-31 15:13:02.000000000 +0200
+@@ -316,6 +555,9 @@
+   cdb_init(&c,fd);
+ 
+   r = doit(q,qtype);
++  if (cname) {
++    dns_domain_free(&cname);
++  }
+ 
+   cdb_free(&c);
+   close(fd);
+diff -rNU3 djbdns-1.05-ipv6/tinydns-data.c djbdns-1.05-dnssec/tinydns-data.c
+--- djbdns-1.05-ipv6/tinydns-data.c	2012-08-26 21:32:29.000000000 +0200
++++ djbdns-1.05-dnssec/tinydns-data.c	2012-08-25 23:45:48.000000000 +0200
 @@ -436,7 +436,7 @@
  	i = 0;
  	while (i < f[1].len) {
@@ -1559,9 +1608,9 @@ diff -rNU3 djbdns-1.05/tinydns-data.c djbdns-1.05-dnssec/tinydns-data.c
  	  ch = k;
  	  rr_add(&ch,1);
  	  rr_add(f[1].s + i,k);
-diff -rNU3 djbdns-1.05/tinydns-get.c djbdns-1.05-dnssec/tinydns-get.c
---- djbdns-1.05/tinydns-get.c	2001-02-11 22:11:45.000000000 +0100
-+++ djbdns-1.05-dnssec/tinydns-get.c	2012-07-31 15:13:02.000000000 +0200
+diff -rNU3 djbdns-1.05-ipv6/tinydns-get.c djbdns-1.05-dnssec/tinydns-get.c
+--- djbdns-1.05-ipv6/tinydns-get.c	2001-02-11 22:11:45.000000000 +0100
++++ djbdns-1.05-dnssec/tinydns-get.c	2012-08-25 23:45:48.000000000 +0200
 @@ -19,7 +19,7 @@
  
  void usage(void)

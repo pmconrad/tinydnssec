@@ -8,7 +8,7 @@ for i in test/q-*; do
     echo -n "$i ... "
     read sec type name <"$i"
     ./tinydns-get "$sec" "$type" $name | tail +2 >test/"o$id"
-    sed -s 's/\b[0-9]\{10\}\b/<TIME>/g;/3600 RRSIG /s/[^ ]*$/<SIG>/;s/^[0-9]\{1,\}/<SIZE>/' <test/"o$id" >test/"t$id"
+    sed -s 's/\b[0-9]\{10\}\b/<TIME>/g;/00 RRSIG /s/[^ ]*$/<SIG>/;s/^[0-9]\{1,\}/<SIZE>/' <test/"o$id" >test/"t$id"
     if diff "test/t$id" "test/a$id" >/dev/null; then
 	echo "OK"
     else
@@ -40,7 +40,7 @@ function dig2tiny {
 	     }
 	   }
 	 }' <"$1" | \
-      sed 's=[ 	]\{1,\}= =g;s=example\. =example =g;s=example\.$=example=;s= IN = =g;s=\([0-9a-zA-Z+/]\{40,\}\) =\1=g' >"$2"
+      sed 's=[ 	]\{1,\}= =g;s=\(example\|xx\)\. =\1 =g;s=\(example\|xx\)\.$=\1=;s= IN = =g;s=\([0-9a-zA-Z+/]\{40,\}\) =\1=g' >"$2"
 }
 
 if [ "$1" = "-t" ]; then
@@ -56,7 +56,7 @@ if [ "$1" = "-t" ]; then
 	fi
 	dig +norecurse +tcp $sec "$type" $name @$SERVER >"test/ot$id"
 	dig2tiny "test/ot$id" "test/ttt$id"
-	sed -s 's/\b[0-9]\{10\}\b/<TIME>/g;s/\b[0-9]\{14\}\b/<TIME>/g;/3600 RRSIG /s/[^ ]*$/<SIG>/' <test/"ttt$id" | \
+	sed -s 's/\b[0-9]\{10\}\b/<TIME>/g;s/\b[0-9]\{14\}\b/<TIME>/g;/00 RRSIG /s/[^ ]*$/<SIG>/' <test/"ttt$id" | \
 	  sort >test/"tt$id"
 	if sort <"test/a$id" | diff -i - "test/tt$id" >/dev/null; then
 	    echo "OK"
@@ -79,7 +79,7 @@ if [ "$1" = "-u" ]; then
 	fi
 	dig +norecurse +notcp $sec "$type" $name @$SERVER >"test/ou$id"
 	dig2tiny "test/ou$id" "test/tut$id"
-	sed -s 's/\b[0-9]\{10\}\b/<TIME>/g;s/\b[0-9]\{14\}\b/<TIME>/g;/3600 RRSIG /s/[^ ]*$/<SIG>/' <test/"tut$id" | \
+	sed -s 's/\b[0-9]\{10\}\b/<TIME>/g;s/\b[0-9]\{14\}\b/<TIME>/g;/00 RRSIG /s/[^ ]*$/<SIG>/' <test/"tut$id" | \
 	  sort >test/"tu$id"
 	if sort <"test/a$id" | diff -i - "test/tu$id" >/dev/null; then
 	    echo "OK"
