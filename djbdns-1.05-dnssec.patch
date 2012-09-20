@@ -244,7 +244,7 @@ diff -rNU3 djbdns-1.05-ipv6/Makefile djbdns-1.05-dnssec/Makefile
  	./compile droproot.c
  
 +edns0.o: \
-+compile edns0.c edns0.h uint16.h dns.h response.h
++compile edns0.c edns0.h uint16.h dns.h response.h iopause.h taia.h uint64.h
 +	./compile edns0.c
 +
  env.a: \
