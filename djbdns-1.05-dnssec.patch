@@ -1,3 +1,17 @@
+(C) 2012 Peter Conrad <conrad@quisquis.de>
+
+This patch is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 3 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 diff -rNU3 djbdns-1.05-ipv6/axfrdns.c djbdns-1.05-dnssec/axfrdns.c
 --- djbdns-1.05-ipv6/axfrdns.c	2012-08-26 21:32:29.000000000 +0200
 +++ djbdns-1.05-dnssec/axfrdns.c	2012-08-25 23:45:48.000000000 +0200
@@ -22,11 +36,20 @@ diff -rNU3 djbdns-1.05-ipv6/axfrdns.c djbdns-1.05-dnssec/axfrdns.c
 diff -rNU3 djbdns-1.05-ipv6/base32hex.c djbdns-1.05-dnssec/base32hex.c
 --- djbdns-1.05-ipv6/base32hex.c	1970-01-01 01:00:00.000000000 +0100
 +++ djbdns-1.05-dnssec/base32hex.c	2012-08-25 23:45:48.000000000 +0200
-@@ -0,0 +1,70 @@
+@@ -0,0 +1,79 @@
 +/* (C) 2012 Peter Conrad <conrad@quisquis.de>
 + *
-+ * Licensed under the terms and conditions of the GNU General Public License,
-+ * version 2.
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 3 as
++ * published by the Free Software Foundation.
++ * 
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ * 
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 + */
 +
 +#include "base32hex.h"
@@ -96,7 +119,22 @@ diff -rNU3 djbdns-1.05-ipv6/base32hex.c djbdns-1.05-dnssec/base32hex.c
 diff -rNU3 djbdns-1.05-ipv6/base32hex.h djbdns-1.05-dnssec/base32hex.h
 --- djbdns-1.05-ipv6/base32hex.h	1970-01-01 01:00:00.000000000 +0100
 +++ djbdns-1.05-dnssec/base32hex.h	2012-08-25 23:45:48.000000000 +0200
-@@ -0,0 +1,8 @@
+@@ -0,0 +1,23 @@
++/* (C) 2012 Peter Conrad <conrad@quisquis.de>
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 3 as
++ * published by the Free Software Foundation.
++ * 
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ * 
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
++
 +#ifndef _BASE32_HEX_H
 +#define _BASE32_HEX_H
 +
@@ -129,7 +167,22 @@ diff -rNU3 djbdns-1.05-ipv6/dns.h djbdns-1.05-dnssec/dns.h
 diff -rNU3 djbdns-1.05-ipv6/edns0.c djbdns-1.05-dnssec/edns0.c
 --- djbdns-1.05-ipv6/edns0.c	1970-01-01 01:00:00.000000000 +0100
 +++ djbdns-1.05-dnssec/edns0.c	2012-08-25 23:45:48.000000000 +0200
-@@ -0,0 +1,30 @@
+@@ -0,0 +1,45 @@
++/* (C) 2012 Peter Conrad <conrad@quisquis.de>
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 3 as
++ * published by the Free Software Foundation.
++ * 
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ * 
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
++
 +#include "dns.h"
 +#include "edns0.h"
 +#include "response.h"
@@ -163,7 +216,22 @@ diff -rNU3 djbdns-1.05-ipv6/edns0.c djbdns-1.05-dnssec/edns0.c
 diff -rNU3 djbdns-1.05-ipv6/edns0.h djbdns-1.05-dnssec/edns0.h
 --- djbdns-1.05-ipv6/edns0.h	1970-01-01 01:00:00.000000000 +0100
 +++ djbdns-1.05-dnssec/edns0.h	2012-08-25 23:45:48.000000000 +0200
-@@ -0,0 +1,7 @@
+@@ -0,0 +1,22 @@
++/* (C) 2012 Peter Conrad <conrad@quisquis.de>
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 3 as
++ * published by the Free Software Foundation.
++ * 
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ * 
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
++
 +#ifndef _EDNS0_H
 +
 +#define _EDNS0_H
@@ -595,7 +663,22 @@ diff -rNU3 djbdns-1.05-ipv6/printrecord.c djbdns-1.05-dnssec/printrecord.c
 diff -rNU3 djbdns-1.05-ipv6/printtype.c djbdns-1.05-dnssec/printtype.c
 --- djbdns-1.05-ipv6/printtype.c	1970-01-01 01:00:00.000000000 +0100
 +++ djbdns-1.05-dnssec/printtype.c	2012-08-25 23:45:48.000000000 +0200
-@@ -0,0 +1,32 @@
+@@ -0,0 +1,47 @@
++/* (C) 2012 Peter Conrad <conrad@quisquis.de>
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 3 as
++ * published by the Free Software Foundation.
++ * 
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ * 
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
++
 +#include "byte.h"
 +#include "dns.h"
 +#include "uint16.h"
@@ -631,7 +714,22 @@ diff -rNU3 djbdns-1.05-ipv6/printtype.c djbdns-1.05-dnssec/printtype.c
 diff -rNU3 djbdns-1.05-ipv6/printtype.h djbdns-1.05-dnssec/printtype.h
 --- djbdns-1.05-ipv6/printtype.h	1970-01-01 01:00:00.000000000 +0100
 +++ djbdns-1.05-dnssec/printtype.h	2012-08-25 23:45:48.000000000 +0200
-@@ -0,0 +1,8 @@
+@@ -0,0 +1,23 @@
++/* (C) 2012 Peter Conrad <conrad@quisquis.de>
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 3 as
++ * published by the Free Software Foundation.
++ * 
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ * 
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
++
 +#ifndef _PRINTTYPE_H
 +#define _PRINTTYPE_H
 +

@@ -1,32 +1,24 @@
 #!/usr/bin/perl -w
 
+# (C) 2012 Peter Conrad <conrad@quisquis.de>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 3 as
+# published by the Free Software Foundation.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 use strict;
 use Fcntl;
 use Digest::SHA1 qw(sha1 sha1_hex);
 use Crypt::OpenSSL::RSA;
 use MIME::Base64;
-
-#print &base32hex("")."\n";
-#print &base32hex("f")."\n";
-#print &base32hex("fo")."\n";
-#print &base32hex("foo")."\n";
-#print &base32hex("foob")."\n";
-#print &base32hex("fooba")."\n";
-#print &base32hex("foobar")."\n";
-
-#my $salt = pack("H*", "aabbccdd");
-#print &base32hex(&nsec3hash("example", 12, $salt))."\n";
-#print &base32hex(&nsec3hash("a.example", 12, $salt))."\n";
-#print &base32hex(&nsec3hash("ai.example", 12, $salt))."\n";
-#print &base32hex(&nsec3hash("ns1.example", 12, $salt))."\n";
-#print &base32hex(&nsec3hash("ns2.example", 12, $salt))."\n";
-#print &base32hex(&nsec3hash("w.example", 12, $salt))."\n";
-#print &base32hex(&nsec3hash("*.w.example", 12, $salt))."\n";
-#print &base32hex(&nsec3hash("x.w.example", 12, $salt))."\n";
-#print &base32hex(&nsec3hash("y.w.example", 12, $salt))."\n";
-#print &base32hex(&nsec3hash("x.y.w.example", 12, $salt))."\n";
-#print &base32hex(&nsec3hash("xx.example", 12, $salt))."\n";
-#print &base32hex(&nsec3hash("2t7b4g4vsa5smi47k61mv5bv1a22bojr.example", 12, $salt))."\n";
 
 $main::ttl = 432000;
 %main::keys = ();
@@ -1016,6 +1008,18 @@ a requirement in RFC-4035 section 2.2.
 =head1 AUTHOR
 
 (C) 2012 Peter Conrad L<mailto:conrad@quisquis.de>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 3 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 =cut
 
