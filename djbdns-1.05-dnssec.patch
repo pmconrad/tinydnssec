@@ -1635,3 +1635,14 @@ diff -rNU3 djbdns-1.05-ipv6/tinydns-get.c djbdns-1.05-dnssec/tinydns-get.c
    if (!parsetype(*argv,type)) usage();
  
    if (!*++argv) usage();
+--- djbdns-1.05/Makefile	2012-11-21 14:06:40.000000000 +0100
++++ djbdns-1.05.new/Makefile	2012-11-21 14:07:40.000000000 +0100
+@@ -745,7 +745,7 @@
+ 	./compile printrecord.c
+ 
+ printtype.o: \
+-compile printtype.c printtype.h dns.h stralloc.h byte.h uint16.h
++compile printtype.c printtype.h dns.h stralloc.h byte.h uint16.h iopause.h taia.h uint64.h
+ 	./compile printtype.c
+ 
+ prog: \
