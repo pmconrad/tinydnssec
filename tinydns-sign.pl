@@ -807,7 +807,12 @@ sub genkey {
 my ($bits, $flags, $alg, $dom, $file) = @_;
 
     if ($bits < 1024 || $bits > 4096) {
-	print STDERR "Keys of less than 1024 or more than 4096 bits are not supported!\n";
+	print STDERR "ERROR: Keys of less than 1024 or more than 4096 bits are not supported!\n";
+	exit 1;
+    }
+
+    if ($alg != 7 && $alg != 8 && $alg != 10) {
+	print STDERR "ERROR: $0 only supports algorithms 7 (RSA-SHA1), 8 (RSA-SHA256)\nand 10 (RSA-SHA512).\n";
 	exit 1;
     }
 
