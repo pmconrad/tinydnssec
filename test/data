@@ -47,3 +47,19 @@ Canother.example.xx:an.example.xx
 Csimple.example.xx:ns1.example.xx
 Csub.example.xx:ns1.a.example.xx
 
+
+# Selfmade example for testing an unsigned zone
+.unsigned.xx:10.10.10.10:a
+.unsigned.xx:10.11.11.11:b
+
++aaaa.unsigned.xx:10.11.12.13
+3aaaa.unsigned.xx:20020a0b0c0d00000000000000000001
+
+@*.w.unsigned.xx::aaaa.unsigned.xx:1:3600
+@x.w.unsigned.xx::xx.example:1:3600
+@x.y.w.unsigned.xx::xx.example:1:3600
+
+Can.unsigned.xx:tripple.xx
+Canother.unsigned.xx:an.example.xx
+Csimple.unsigned.xx:ns1.example.xx
+Csub.unsigned.xx:ns1.a.example.xx
