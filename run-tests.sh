@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# (C) 2012 Peter Conrad <conrad@quisquis.de>
+# (C) 2012,2015 Peter Conrad <conrad@quisquis.de>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -21,7 +21,7 @@ for i in test/q-*; do
     id="${i#test/q}"
     echo -n "$i ... "
     read sec type name <"$i"
-    ./tinydns-get "$sec" "$type" $name | tail +2 >test/"o$id"
+    ./tinydns-get "$sec" "$type" $name | tail -n +2 >test/"o$id"
     sed -s 's/\b[0-9]\{10\}\b/<TIME>/g;/00 RRSIG /s/[^ ]*$/<SIG>/;s/^[0-9]\{1,\}/<SIZE>/' <test/"o$id" >test/"t$id"
     if diff "test/t$id" "test/a$id" >/dev/null; then
 	echo "OK"
@@ -30,7 +30,7 @@ for i in test/q-*; do
     fi
 done
 
-function dig2tiny {
+dig2tiny () {
     awk 'BEGIN { sect = 0; }
 	 /^;; QUESTION SECTION/ { sect = 1; }
 	 /^;; ANSWER SECTION/ { sect = 2; }
