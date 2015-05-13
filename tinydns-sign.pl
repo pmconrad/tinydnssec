@@ -587,7 +587,7 @@ sub parseData {
 my $in = shift;
 
     my $res = "";
-    while ($in =~ /^(.*?)\\(\d\d?\d?)/) {
+    while ($in =~ /^(.*?)\\([0-7]{1,3})/) {
 	$in = $';
 	$res .= $1.chr(oct($2));
     }

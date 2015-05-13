@@ -54,10 +54,16 @@ dig2tiny () {
 	     }
 	   }
 	 }' <"$1" | \
-      sed 's=[ 	]\{1,\}= =g;s=\(example\|xx\)\. =\1 =g;s=\(example\|xx\)\.$=\1=;s= IN = =g;s=\([0-9a-zA-Z+/]\{40,\}\) =\1=g' >"$2"
+      sed 's=[ 	]\{1,\}= =g;s=\(example\|xx\)\. =\1 =g;s=\(example\|xx\)\.$=\1=;s= IN = =g;s=\([0-9a-zA-Z+/]\{40,\}\) =\1=g' | \
+      sed 's=HINFO "8LH-10" "TOPS-20"=13 \\0068LH-10\\007TOPS-20=' >"$2"
 }
 
 if [ "$1" = "-t" ]; then
+    if [ -z "$SERVER" ]; then
+	echo 1>&2 "Set SERVER=<ip> and run axfrdns as root on port 53, e. g."
+	echo 1>&2 'ROOT=`pwd` envuidgid <user> tcpserver -H -P -R -l localhost $SERVER 53 ./axfrdns'
+	exit 1
+    fi
     shift
     for i in test/q-*; do
 	id="${i#test/q}"
@@ -72,7 +78,7 @@ if [ "$1" = "-t" ]; then
 	dig2tiny "test/ot$id" "test/ttt$id"
 	sed -s 's/\b[0-9]\{10\}\b/<TIME>/g;s/\b[0-9]\{14\}\b/<TIME>/g;/00 RRSIG /s/[^ ]*$/<SIG>/' <test/"ttt$id" | \
 	  sort >test/"tt$id"
-	if sort <"test/a$id" | diff -i - "test/tt$id" >/dev/null; then
+	if sort <"test/a$id" | diff -wi - "test/tt$id" >/dev/null; then
 	    echo "OK"
 	else
 	    echo "FAIL: dig +tcp"
@@ -81,6 +87,11 @@ if [ "$1" = "-t" ]; then
 fi
 
 if [ "$1" = "-u" ]; then
+    if [ -z "$SERVER" ]; then
+	echo 1>&2 "Set SERVER=<ip> and run tinydns as root, e. g."
+	echo 1>&2 'ROOT=`pwd` IP=$SERVER envuidgid <user> ./tinydns'
+	exit 1
+    fi
     shift
     for i in test/q-*; do
 	id="${i#test/q}"
@@ -95,7 +106,7 @@ if [ "$1" = "-u" ]; then
 	dig2tiny "test/ou$id" "test/tut$id"
 	sed -s 's/\b[0-9]\{10\}\b/<TIME>/g;s/\b[0-9]\{14\}\b/<TIME>/g;/00 RRSIG /s/[^ ]*$/<SIG>/' <test/"tut$id" | \
 	  sort >test/"tu$id"
-	if sort <"test/a$id" | diff -i - "test/tu$id" >/dev/null; then
+	if sort <"test/a$id" | diff -wi - "test/tu$id" >/dev/null; then
 	    echo "OK"
 	else
 	    echo "FAIL: dig +notcp"
