@@ -16,8 +16,10 @@
 
 
 # Avoid perl hash randomization for relyable ordering of tinydns-sign output
-PERL_HASH_SEED=1
+PERL_HASH_SEED=4
 export PERL_HASH_SEED
+PERL_PERTURB_KEYS=0
+export PERL_PERTURB_KEYS
 
 ./tinydns-sign.pl test/example.?sk <test/data >data
 ./tinydns-data
