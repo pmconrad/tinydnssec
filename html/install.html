@@ -12,27 +12,6 @@
 <li><a href="howto.html">Howto</a></li>
 <li>Installation</li>
 </ul>
-
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post">  
-  
-    <!-- Identify your business so that you can collect the payments. -->  
-    <input type="hidden" name="business" value="donate@tinydnssec.org">
-  
-    <!-- Specify a Donate button. -->  
-    <input type="hidden" name="cmd" value="_donations">  
-  
-    <!-- Specify details about the contribution -->  
-    <input type="hidden" name="item_name" value="The tinydnssec project">
-    <!--input type="hidden" name="item_number" value="Fall Cleanup Campaign">  
-    <input type="hidden" name="currency_code" value="USD"-->  
-  
-    <!-- Display the payment button. -->  
-    <input type="image" name="submit" border="0"  
-	src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif"  
-	alt="PayPal - The safer, easier way to pay online">  
-    <img alt="" border="0" width="1" height="1"  
-	src="https://www.paypal.com/en_US/i/scr/pixel.gif" >  
-</form>
 </div>
 
 <div id="content">
@@ -46,7 +25,7 @@ This patch is <b>not</b> against stock djbdns. Here's the minimal set of patches
 to install before the tinydnssec patch applies:
 </p>
 <ol>
-<li><a href="http://www.fefe.de/dns/">http://www.fefe.de/dns/</a>djbdns-1.05-test25.diff.bz2<br>
+<li><a href="http://www.fefe.de/dns/">http://www.fefe.de/dns/</a>djbdns-1.05-test28.diff.bz2<br>
    Unfortunately, fefe refuses to name a license for this patch, which means
    that I cannot redistribute it.</li>
 
@@ -58,7 +37,7 @@ to install before the tinydnssec patch applies:
 <ol>
 <li>Download and unpack the <a href="http://cr.yp.to/djbdns/install.html">original djbdns sources</a>.</li>
 <li>Download and apply the patches listed above.</li>
-<li>Download and unpack <a href="tinydnssec-1.05-1.tar.gz">tinydnssec</a> in
+<li>Download and unpack <a href="tinydnssec-1.05-1.5.tar.gz">tinydnssec</a> in
     the top-level source directory.</li>
 <li>Apply djbdns-1.05-dnssec.patch.</li>
 <li>Install as per
@@ -93,7 +72,7 @@ to test the same queries via tcp and udp.
 <h2>License information</h2>
 
 <p>
-(C) 2012 Peter Conrad
+(C) 2012,2015,2017,2019 Peter Conrad
 </p>
 <p>
 This program is free software: you can redistribute it and/or modify

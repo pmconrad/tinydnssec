@@ -7,7 +7,7 @@ Requirements
 This patch is *not* against stock djbdns. Here's the minimal set of patches
 to install before the tinydnssec patch applies:
 
-1. http://www.fefe.de/dns/djbdns-1.05-test27.diff.bz2
+1. http://www.fefe.de/dns/djbdns-1.05-test28.diff.bz2
    Unfortunately, fefe refuses to name a license for this patch, which means
    that I cannot redistribute it.
 
@@ -19,7 +19,7 @@ Build
 1. Download and unpack the original djbdns sources from
    http://cr.yp.to/djbdns/install.html .
 2. Download and apply the patches listed above.
-3. Download and unpack http://tinydnssec.org/tinydnssec-1.05-1.tar.gz in
+3. Download and unpack http://tinydnssec.org/tinydnssec-1.05-1.5.tar.bz2 in
    the top-level source directory.
 4. Apply djbdns-1.05-dnssec.patch.
 5. Install as per usual instructions (see http://cr.yp.to/djbdns/install.html ).
