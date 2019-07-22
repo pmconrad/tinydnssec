@@ -1,0 +1,10 @@
+<SIZE> bytes, 1+2+5+1 records, response, authoritative, noerror
+query: A www.a.bug-201907.xx
+answer: www.a.bug-201907.xx 86400 RRSIG A 7 3 86400 <TIME> <TIME> 44495 bug-201907.xx <SIG>
+answer: www.a.bug-201907.xx 86400 A 1.2.3.4
+authority: 5k5q9fve7svr623nqk9k81jb4eumftgc.bug-201907.xx 86400 NSEC3 1 0 12 AABBCCDD b8uo7q57fovi0op7jsl3dp6dpr80thpi AAAA RRSIG
+authority: 5k5q9fve7svr623nqk9k81jb4eumftgc.bug-201907.xx 86400 RRSIG NSEC3 7 3 86400 <TIME> <TIME> 44495 bug-201907.xx <SIG>
+authority: bug-201907.xx 259200 NS ns1.bug-201907.xx
+authority: bug-201907.xx 259200 NS ns2.bug-201907.xx
+authority: bug-201907.xx 259200 RRSIG NS 7 2 259200 <TIME> <TIME> 44495 bug-201907.xx <SIG>
+additional: . 0 OPT 512 0 0 8000

@@ -1,0 +1,2 @@
+-s mx www.c.bug-201907.xx
+# Buggy wildcard handling reported in 2019-07, depends on RR order in data.cdb file

@@ -1,0 +1,12 @@
+<SIZE> bytes, 1+2+5+3 records, response, authoritative, noerror
+query: MX www.c.bug-201907.xx
+answer: www.c.bug-201907.xx 300 MX 1 a.mx.bug-201907.xx
+answer: www.c.bug-201907.xx 300 RRSIG MX 7 3 300 <TIME> <TIME> 44495 bug-201907.xx <SIG>
+authority: b8uo7q57fovi0op7jsl3dp6dpr80thpi.bug-201907.xx 86400 NSEC3 1 0 12 AABBCCDD f8tp7k0vhrf2ous20vfvlgorg6s3lr6b
+authority: b8uo7q57fovi0op7jsl3dp6dpr80thpi.bug-201907.xx 86400 RRSIG NSEC3 7 3 86400 <TIME> <TIME> 44495 bug-201907.xx <SIG>
+authority: bug-201907.xx 259200 NS ns1.bug-201907.xx
+authority: bug-201907.xx 259200 NS ns2.bug-201907.xx
+authority: bug-201907.xx 259200 RRSIG NS 7 2 259200 <TIME> <TIME> 44495 bug-201907.xx <SIG>
+additional: . 0 OPT 512 0 0 8000
+additional: a.mx.bug-201907.xx 300 A 1.2.3.4
+additional: a.mx.bug-201907.xx 300 RRSIG A 7 4 300 <TIME> <TIME> 44495 bug-201907.xx <SIG>
