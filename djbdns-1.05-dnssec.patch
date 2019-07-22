@@ -1223,9 +1223,8 @@ diff -rNU3 djbdns-1.05.tds-base/TARGETS djbdns-1.05.tinydnssec/TARGETS
 +base32hex.o
 +printtype.o
 +edns0.o
-diff -rNU3 djbdns-1.05.tds-base/tdlookup.c djbdns-1.05.tinydnssec/tdlookup.c
---- djbdns-1.05.tds-base/tdlookup.c	2012-12-06 22:45:38.000000000 +0100
-+++ djbdns-1.05.tinydnssec/tdlookup.c	2012-12-07 11:01:39.000000000 +0100
+--- djbdns-1.05-ipv6/tdlookup.c	2019-07-22 14:04:16.803064553 +0200
++++ djbdns-1.05-dnssec/tdlookup.c	2019-07-22 20:36:57.566950278 +0200
 @@ -10,6 +10,9 @@
  #include "response.h"
  #include "ip6.h"
@@ -1245,46 +1244,16 @@ diff -rNU3 djbdns-1.05.tds-base/tdlookup.c djbdns-1.05.tinydnssec/tdlookup.c
  static char clientloc[2];
  static struct tai now;
  static struct cdb c;
-@@ -44,10 +47,18 @@
+@@ -44,6 +47,8 @@
  static unsigned int dpos;
  static char type[2];
  static uint32 ttl;
 +static char *nsec3;
 +static char *cname = 0;
  
-+/* returns -1 on failure,
-+ * returns 0 on not found
-+ * returns 1 when found
-+ * returns 2 when flagwild is true and no wildcard match has been found but
-+ * a direct match exists. This is for RFC-1034 section 4.3.3 compatibility.
-+ */ 
  static int find(char *d,int flagwild)
  {
--  int r;
-+  int r, direct=0;
-   char ch;
-   struct tai cutoff;
-   char ttd[8];
-@@ -57,7 +68,9 @@
- 
-   for (;;) {
-     r = cdb_findnext(&c,d,dns_domain_length(d));
--    if (r <= 0) return r;
-+    if (r < 0) return r; /* -1 */
-+    if (r == 0) { return flagwild ? direct ? 2 : 0
-+				  : 0; }
-     dlen = cdb_datalen(&c);
-     if (dlen > sizeof data) return -1;
-     if (cdb_read(&c,data,dlen,cdb_datapos(&c)) == -1) return -1;
-@@ -68,6 +81,7 @@
-       dpos = dns_packet_copy(data,dlen,dpos,recordloc,2); if (!dpos) return -1;
-       if (byte_diff(recordloc,2,clientloc)) continue;
-     }
-+    direct = direct || (ch != '*');
-     if (flagwild != (ch == '*')) continue;
-     dpos = dns_packet_copy(data,dlen,dpos,ttlstr,4); if (!dpos) return -1;
-     uint32_unpack_big(ttlstr,&ttl);
-@@ -105,6 +119,123 @@
+@@ -105,6 +110,123 @@
    return response_addname(d1);
  }
  
@@ -1408,7 +1377,7 @@ diff -rNU3 djbdns-1.05.tds-base/tdlookup.c djbdns-1.05.tinydnssec/tdlookup.c
  static int doit(char *q,char qtype[2])
  {
    unsigned int bpos;
-@@ -118,6 +249,8 @@
+@@ -118,6 +240,8 @@
    int r;
    int flagns;
    int flagauthoritative;
@@ -1417,7 +1386,7 @@ diff -rNU3 djbdns-1.05.tds-base/tdlookup.c djbdns-1.05.tinydnssec/tdlookup.c
    char x[20];
    uint16 u16;
    char addr[8][4];
-@@ -132,18 +265,28 @@
+@@ -132,18 +256,28 @@
    for (;;) {
      flagns = 0;
      flagauthoritative = 0;
@@ -1448,7 +1417,7 @@ diff -rNU3 djbdns-1.05.tds-base/tdlookup.c djbdns-1.05.tinydnssec/tdlookup.c
    if (!flagauthoritative) {
      response[2] &= ~4;
      goto AUTHORITY; /* q is in a child zone */
-@@ -152,7 +295,11 @@
+@@ -152,7 +286,11 @@
  
    flaggavesoa = 0;
    flagfound = 0;
@@ -1461,11 +1430,8 @@ diff -rNU3 djbdns-1.05.tds-base/tdlookup.c djbdns-1.05.tinydnssec/tdlookup.c
  
    for (;;) {
      addrnum = addr6num = 0;
-@@ -160,10 +307,29 @@
-     cdb_findstart(&c);
-     while (r = find(wild,wild != q)) {
+@@ -162,8 +300,26 @@
        if (r == -1) return 0;
-+      if (r == 2) break;
        flagfound = 1;
        if (flaggavesoa && byte_equal(type,2,DNS_T_SOA)) continue;
 -      if (byte_diff(type,2,qtype) && byte_diff(qtype,2,DNS_T_ANY) && byte_diff(type,2,DNS_T_CNAME)) continue;
@@ -1493,7 +1459,7 @@ diff -rNU3 djbdns-1.05.tds-base/tdlookup.c djbdns-1.05.tinydnssec/tdlookup.c
  	addrttl = ttl;
  	i = dns_random(addrnum + 1);
  	if (i < 8) {
-@@ -174,7 +340,7 @@
+@@ -174,7 +330,7 @@
  	if (addrnum < 1000000) ++addrnum;
  	continue;
        }
@@ -1502,7 +1468,7 @@ diff -rNU3 djbdns-1.05.tds-base/tdlookup.c djbdns-1.05.tinydnssec/tdlookup.c
  	addr6ttl = ttl;
  	i = dns_random(addr6num + 1);
  	if (i < 8) {
-@@ -188,6 +354,9 @@
+@@ -188,6 +344,9 @@
        if (!response_rstart(q,type,ttl)) return 0;
        if (byte_equal(type,2,DNS_T_NS) || byte_equal(type,2,DNS_T_CNAME) || byte_equal(type,2,DNS_T_PTR)) {
  	if (!doname()) return 0;
@@ -1512,7 +1478,7 @@ diff -rNU3 djbdns-1.05.tds-base/tdlookup.c djbdns-1.05.tinydnssec/tdlookup.c
        }
        else if (byte_equal(type,2,DNS_T_MX)) {
  	if (!dobytes(2)) return 0;
-@@ -199,10 +368,18 @@
+@@ -199,6 +358,13 @@
  	if (!dobytes(20)) return 0;
          flaggavesoa = 1;
        }
@@ -1526,12 +1492,15 @@ diff -rNU3 djbdns-1.05.tds-base/tdlookup.c djbdns-1.05.tinydnssec/tdlookup.c
        else
          if (!response_addbytes(data + dpos,dlen - dpos)) return 0;
        response_rfinish(RESPONSE_ANSWER);
-     }
-+    if (r == 2) break;
-     for (i = 0;i < addrnum;++i)
-       if (i < 8) {
- 	if (!response_rstart(q,DNS_T_A,addrttl)) return 0;
-@@ -223,6 +400,16 @@
+@@ -219,10 +385,24 @@
+     if (flagfound) break;
+     if (wild == control) break;
+     if (!*wild) break; /* impossible */
++    if (wild != q) {
++      cdb_findstart(&c);
++      if (find(wild,0)) break; /* RFC-1089 section 4.3.3 */
++    }
+     wild += *wild;
      wild += 1;
    }
  
@@ -1548,7 +1517,7 @@ diff -rNU3 djbdns-1.05.tds-base/tdlookup.c djbdns-1.05.tinydnssec/tdlookup.c
    if (!flagfound)
      response_nxdomain();
  
-@@ -230,22 +417,49 @@
+@@ -230,22 +410,49 @@
    AUTHORITY:
    aupos = response_len;
  
@@ -1610,7 +1579,7 @@ diff -rNU3 djbdns-1.05.tds-base/tdlookup.c djbdns-1.05.tinydnssec/tdlookup.c
        cdb_findstart(&c);
        while (r = find(control,0)) {
          if (r == -1) return 0;
-@@ -254,10 +468,33 @@
+@@ -254,10 +461,33 @@
  	  if (!doname()) return 0;
            response_rfinish(RESPONSE_AUTHORITY);
          }
@@ -1644,7 +1613,7 @@ diff -rNU3 djbdns-1.05.tds-base/tdlookup.c djbdns-1.05.tinydnssec/tdlookup.c
  
    bpos = anpos;
    while (bpos < arpos) {
-@@ -265,25 +502,33 @@
+@@ -265,25 +495,33 @@
      bpos = dns_packet_copy(response,arpos,bpos,x,10); if (!bpos) return 0;
      if (byte_equal(x,2,DNS_T_NS) || byte_equal(x,2,DNS_T_MX)) {
        if (byte_equal(x,2,DNS_T_NS)) {
@@ -1685,7 +1654,7 @@ diff -rNU3 djbdns-1.05.tds-base/tdlookup.c djbdns-1.05.tinydnssec/tdlookup.c
          }
        }
      }
-@@ -291,10 +536,10 @@
+@@ -291,10 +529,10 @@
      bpos += u16;
    }
  
@@ -1698,7 +1667,7 @@ diff -rNU3 djbdns-1.05.tds-base/tdlookup.c djbdns-1.05.tinydnssec/tdlookup.c
        byte_zero(response + RESPONSE_AUTHORITY,2);
        response_len = aupos;
      }
-@@ -316,6 +561,9 @@
+@@ -316,6 +554,9 @@
    cdb_init(&c,fd);
  
    r = doit(q,qtype);
