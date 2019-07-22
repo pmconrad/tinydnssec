@@ -14,6 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
+# Avoid perl hash randomization for relyable ordering of tinydns-sign output
+PERL_HASH_SEED=1
+export PERL_HASH_SEED
+
 ./tinydns-sign.pl test/example.?sk <test/data >data
 ./tinydns-data
 
