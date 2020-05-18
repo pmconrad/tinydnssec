@@ -14,15 +14,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 # Avoid perl hash randomization for relyable ordering of tinydns-sign output
 PERL_HASH_SEED=4
 export PERL_HASH_SEED
 PERL_PERTURB_KEYS=0
 export PERL_PERTURB_KEYS
 
+set -e
+
+####################################
+# Test case for endless loop problem
+(ulimit -Sv 102400; ./tinydns-sign.pl <test/data2 test/example.ksk >/dev/null)
+
+
+##########################################
+# Test example zones and tinydns responses
+
 ./tinydns-sign.pl test/example.?sk <test/data >data
 ./tinydns-data
+rm data
 
 for i in test/q-*; do
     id="${i#test/q}"
@@ -120,3 +130,4 @@ if [ "$1" = "-u" ]; then
 	fi
     done
 fi
+
