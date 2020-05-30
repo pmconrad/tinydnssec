@@ -1,0 +1,53 @@
+name: Github Autobuild
+on: [ push, pull_request ]
+jobs:
+  doIt:
+    name: Build and run tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Prepare environment
+      run: |
+        sudo apt-get install -y cpanminus libcrypt-openssl-rsa-perl ucspi-tcp
+        sudo cpanm -i Digest::SHA1
+    - name: Check out sources
+      uses: actions/checkout@v2
+    - name: Make tinydnssec
+      run: |
+        make
+    - name: Download djbdns and dependencies
+      run: |
+        curl -sSO http://cr.yp.to/djbdns/djbdns-1.05.tar.gz
+        curl -sSO http://www.fefe.de/dns/djbdns-1.05-test28.diff.xz
+        curl -sSO http://www.tinydnssec.org/djbdns-ipv6-make.patch
+    - name: Unpack and patch sources
+      run: |
+        mkdir -p _build
+        cd _build
+        tar xfz ../djbdns-1.05.tar.gz
+        cd djbdns-1.05
+        tar xfj ../../tinydnssec.tar.bz2
+        xzcat ../../djbdns-1.05-test28.diff.xz | patch -p1
+        patch -p0 <../../djbdns-ipv6-make.patch
+        patch -p1 <../../djbdns-1.05-dnssec.patch
+    - name: Configure
+      run: |
+        cd _build/djbdns-1.05
+        echo cc --include /usr/include/errno.h >conf-cc
+    - name: Build
+      run: |
+        cd _build/djbdns-1.05
+        make
+    - name: Run unit-tests
+      run: |
+        cd _build/djbdns-1.05
+        ./run-tests.sh
+    - name: Run UDP tests
+      run: |
+        cd _build/djbdns-1.05
+        sudo IP=127.0.0.3 ROOT="`pwd`" UID=1 GID=1 ./tinydns &
+        SERVER=127.0.0.3 ./run-tests.sh -u
+    - name: Run TCP tests
+      run: |
+        cd _build/djbdns-1.05
+        sudo ROOT="`pwd`" UID=1 GID=1 tcpserver -HRl localhost 127.0.0.3 53 ./axfrdns &
+        SERVER=127.0.0.3 ./run-tests.sh -t
