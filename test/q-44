@@ -1,0 +1,2 @@
+-s a 1.bug-202005.xx
+# Hash database in [0-9a-f].domain shadows top-level wildcard *.domain

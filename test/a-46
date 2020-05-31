@@ -1,0 +1,5 @@
+<SIZE> bytes, 1+1+2+0 records, response, authoritative, noerror
+query: A 1.bug-202005.xx
+answer: 1.bug-202005.xx 86400 A 1.2.3.4
+authority: bug-202005.xx 259200 NS ns1.bug-202005.xx
+authority: bug-202005.xx 259200 NS ns2.bug-202005.xx
