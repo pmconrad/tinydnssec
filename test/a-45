@@ -1,0 +1,10 @@
+<SIZE> bytes, 1+2+5+1 records, response, authoritative, noerror
+query: A sub.1.bug-202005.xx
+answer: sub.1.bug-202005.xx 86400 RRSIG A 7 2 86400 <TIME> <TIME> 44495 bug-202005.xx <SIG>
+answer: sub.1.bug-202005.xx 86400 A 1.2.3.4
+authority: u4kmi4aqmefd24lmtg51hc9s1aljpc0h.bug-202005.xx 86400 NSEC3 1 0 12 AABBCCDD hetkrmlecvmqlfotp27b7pheo7b99aod A RRSIG
+authority: u4kmi4aqmefd24lmtg51hc9s1aljpc0h.bug-202005.xx 86400 RRSIG NSEC3 7 3 86400 <TIME> <TIME> 44495 bug-202005.xx <SIG>
+authority: bug-202005.xx 259200 NS ns1.bug-202005.xx
+authority: bug-202005.xx 259200 NS ns2.bug-202005.xx
+authority: bug-202005.xx 259200 RRSIG NS 7 2 259200 <TIME> <TIME> 44495 bug-202005.xx <SIG>
+additional: . 0 OPT 512 0 0 8000
