@@ -101,10 +101,15 @@ if [ "$1" = "-t" ]; then
 	sed -s 's/\b[0-9]\{10\}\b/<TIME>/g;s/\b[0-9]\{14\}\b/<TIME>/g;/00 RRSIG /s/[^ ]*$/<SIG>/' <test/"ttt$id" | \
 	  sort >test/"tt$id"
 	if sort <"test/a$id" | diff -wi - "test/tt$id" >/dev/null; then
-	    echo "OK"
+	    result=OK
+	    if [ -n "$sec" ] && grep -q "$zone" test/trust.keys; then
+		delv -a test/trust.keys +tcp +short +root="$zone" +rtrace +nodlv @"$SERVER" $name$zone $typea >/dev/null 2>&1 \
+		  || result="FAIl: delv validation"
+	    fi
 	else
-	    echo "FAIL: dig +tcp"
+	    result="FAIL: dig +notcp"
 	fi
+	echo "$result"
     done
 fi
 
@@ -129,10 +134,15 @@ if [ "$1" = "-u" ]; then
 	sed -s 's/\b[0-9]\{10\}\b/<TIME>/g;s/\b[0-9]\{14\}\b/<TIME>/g;/00 RRSIG /s/[^ ]*$/<SIG>/' <test/"tut$id" | \
 	  sort >test/"tu$id"
 	if sort <"test/a$id" | diff -wi - "test/tu$id" >/dev/null; then
-	    echo "OK"
+	    result=OK
+	    if [ -n "$sec" ] && grep -q "$zone" test/trust.keys; then
+		delv -a test/trust.keys +notcp +short +root="$zone" +rtrace +nodlv @"$SERVER" $name$zone $typea >/dev/null 2>&1 \
+		  || result="FAIl: delv validation"
+	    fi
 	else
-	    echo "FAIL: dig +notcp"
+	    result="FAIL: dig +notcp"
 	fi
+	echo "$result"
     done
 fi
 
