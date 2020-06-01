@@ -254,7 +254,7 @@ foreach my $zone (@main::zones) {
     }
     $prev->{next} = $first->{hash};
     unshift @{$byNibble[0]}, $prev->{hash};
-    for (my $nib = 1; $nib <= $#byNibble && $#{$byNibble[$nib]} < 0; $nib++) {
+    for (my $nib = 1; $nib <= $#byNibble && $#{$byNibble[$nib - 1]} < 1; $nib++) {
 	unshift @{$byNibble[$nib]}, $prev->{hash};
     }
     for (my $nib = $#byNibble + 1; $nib < 16; $nib++) {
