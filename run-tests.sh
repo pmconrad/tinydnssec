@@ -102,9 +102,14 @@ if [ "$1" = "-t" ]; then
 	  sort >test/"tt$id"
 	if sort <"test/a$id" | diff -wi - "test/tt$id" >/dev/null; then
 	    result=OK
-	    if [ -n "$sec" ] && grep -q "$zone" test/trust.keys; then
-		delv -a test/trust.keys +tcp +short +root="$zone" +rtrace +nodlv @"$SERVER" $name$zone $typea >/dev/null 2>&1 \
-		  || result="FAIl: delv validation"
+	    if [ -n "$sec" -a "$1" = "-u" ] && grep -q "$zone" test/trust.keys; then
+		truncate -s 0 "test/dt$id"
+		echo ".$id" \
+		  | grep -qE '.-(0[2679]|2[346])' \
+		  || delv -a test/trust.keys +tcp +short +root="$zone" +nodlv @"$SERVER" $name$zone $type >"test/dt$id" 2>&1
+		grep -vE 'failed.*nx(domain|rrset)' "test/dt$id" \
+		  | grep -i fail \
+		  && result="FAIl: delv validation"
 	    fi
 	else
 	    result="FAIL: dig +notcp"
@@ -136,8 +141,13 @@ if [ "$1" = "-u" ]; then
 	if sort <"test/a$id" | diff -wi - "test/tu$id" >/dev/null; then
 	    result=OK
 	    if [ -n "$sec" ] && grep -q "$zone" test/trust.keys; then
-		delv -a test/trust.keys +notcp +short +root="$zone" +rtrace +nodlv @"$SERVER" $name$zone $typea >/dev/null 2>&1 \
-		  || result="FAIl: delv validation"
+		truncate -s 0 "test/du$id"
+		echo ".$id" \
+		  | grep -qE '.-(0[2679]|2[346])' \
+		  || delv -a test/trust.keys +notcp +short +root="$zone" +nodlv @"$SERVER" $name$zone $type >"test/du$id" 2>&1
+		grep -vE 'failed.*nx(domain|rrset)' "test/dt$id" \
+		  | grep -i fail \
+		  && result="FAIl: delv validation"
 	    fi
 	else
 	    result="FAIL: dig +notcp"
