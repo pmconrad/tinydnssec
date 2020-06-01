@@ -30,6 +30,11 @@ set -e
 ##########################################
 # Test example zones and tinydns responses
 
+( echo "managed-keys {";
+  grep '^#K[^:]*:257:' test/data \
+    | sed 's=^#K\([^:]*\):\([0-9]*\):\([0-9]*\):\([0-9]*\):\([^:]*\):.*= \1 initial-key \2 \3 \4 "\5";='
+  echo "};" ) >test/trust.keys
+
 ./tinydns-sign.pl test/example.?sk <test/data >data
 ./tinydns-data
 rm data
@@ -37,8 +42,8 @@ rm data
 for i in test/q-*; do
     id="${i#test/q}"
     echo -n "$i ... "
-    read sec type name <"$i"
-    ./tinydns-get "$sec" "$type" $name | tail -n +2 >test/"o$id"
+    read name zone type sec <"$i"
+    ./tinydns-get $sec "$type" $name$zone | tail -n +2 >test/"o$id"
     sed -s 's/\b[0-9]\{10\}\b/<TIME>/g;/00 RRSIG /s/[^ ]*$/<SIG>/;s/^[0-9]\{1,\}/<SIZE>/' <test/"o$id" >test/"t$id"
     if diff "test/t$id" "test/a$id" >/dev/null; then
 	echo "OK"
@@ -85,13 +90,13 @@ if [ "$1" = "-t" ]; then
     for i in test/q-*; do
 	id="${i#test/q}"
 	echo -n "$i (tcp) ... "
-	read sec type name <"$i"
+	read name zone type sec <"$i"
 	if [ "$sec" = "-s" ]; then
 	    sec="+dnssec +bufsize=1220"
 	elif [ "$sec" = "-S" ]; then
 	    sec="+dnssec +bufsize=2000"
 	fi
-	dig +norecurse +tcp $sec "$type" $name @$SERVER >"test/ot$id"
+	dig +norecurse +tcp $sec "$type" $name$zone @$SERVER >"test/ot$id"
 	dig2tiny "test/ot$id" "test/ttt$id"
 	sed -s 's/\b[0-9]\{10\}\b/<TIME>/g;s/\b[0-9]\{14\}\b/<TIME>/g;/00 RRSIG /s/[^ ]*$/<SIG>/' <test/"ttt$id" | \
 	  sort >test/"tt$id"
@@ -113,13 +118,13 @@ if [ "$1" = "-u" ]; then
     for i in test/q-*; do
 	id="${i#test/q}"
 	echo -n "$i (udp) ... "
-	read sec type name <"$i"
+	read name zone type sec <"$i"
 	if [ "$sec" = "-s" ]; then
 	    sec="+dnssec +bufsize=1220"
 	elif [ "$sec" = "-S" ]; then
 	    sec="+dnssec +bufsize=2000"
 	fi
-	dig +norecurse +notcp $sec "$type" $name @$SERVER >"test/ou$id"
+	dig +norecurse +notcp $sec "$type" $name$zone @$SERVER >"test/ou$id"
 	dig2tiny "test/ou$id" "test/tut$id"
 	sed -s 's/\b[0-9]\{10\}\b/<TIME>/g;s/\b[0-9]\{14\}\b/<TIME>/g;/00 RRSIG /s/[^ ]*$/<SIG>/' <test/"tut$id" | \
 	  sort >test/"tu$id"
