@@ -1,0 +1,11 @@
+<SIZE> bytes, 1+0+8+1 records, response, authoritative, nxdomain
+query: A 23.bug-201907.xx
+authority: bug-201907.xx 2500 SOA ns1.bug-201907.xx bugs.bug-201907.xx <TIME> 3600 300 3600000 3600
+authority: bug-201907.xx 2500 RRSIG SOA 7 2 2500 <TIME> <TIME> 44495 bug-201907.xx <SIG>
+authority: mommf7eoir860kafe2svq3skg8931ter.bug-201907.xx 86400 NSEC3 1 0 12 AABBCCDD nktouv25ij58mqjbrnv5chn5tp0os33e NS SOA RRSIG DNSKEY NSEC3PARAM
+authority: mommf7eoir860kafe2svq3skg8931ter.bug-201907.xx 86400 RRSIG NSEC3 7 3 86400 <TIME> <TIME> 44495 bug-201907.xx <SIG>
+authority: jlvi3gvq4und75uno2669hta94qjuf8d.bug-201907.xx 86400 NSEC3 1 0 12 AABBCCDD mommf7eoir860kafe2svq3skg8931ter A RRSIG
+authority: jlvi3gvq4und75uno2669hta94qjuf8d.bug-201907.xx 86400 RRSIG NSEC3 7 3 86400 <TIME> <TIME> 44495 bug-201907.xx <SIG>
+authority: vu6o9jbv9vgkspu0cser5248i4717i3c.bug-201907.xx 86400 NSEC3 1 0 12 AABBCCDD 5k5q9fve7svr623nqk9k81jb4eumftgc MX RRSIG
+authority: vu6o9jbv9vgkspu0cser5248i4717i3c.bug-201907.xx 86400 RRSIG NSEC3 7 3 86400 <TIME> <TIME> 44495 bug-201907.xx <SIG>
+additional: . 0 OPT 512 0 0 8000
