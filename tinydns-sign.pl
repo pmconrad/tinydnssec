@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2012,2015 Peter Conrad <conrad@quisquis.de>
+# Copyright (C) 2012,2015,2020 Peter Conrad <conrad@quisquis.de>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -254,7 +254,7 @@ foreach my $zone (@main::zones) {
     }
     $prev->{next} = $first->{hash};
     unshift @{$byNibble[0]}, $prev->{hash};
-    for (my $nib = 1; $nib <= $#byNibble && $#{$byNibble[$nib]} < 0; $nib++) {
+    for (my $nib = 1; $nib <= $#byNibble && $#{$byNibble[$nib - 1]} < 1; $nib++) {
 	unshift @{$byNibble[$nib]}, $prev->{hash};
     }
     for (my $nib = $#byNibble + 1; $nib < 16; $nib++) {
@@ -279,7 +279,7 @@ foreach my $zone (@main::zones) {
 	&makeGenericRecord($hash->{generator}, 65281, &wireName($hash->{name}), $n3p->{ttl}, $n3p->{ts}, $n3p->{lo});
     }
     for (my $nib = 0; $nib < 16; $nib++) {
-	my $name = sprintf("%x", $nib).".$zone";
+	my $name = chr(ord("A") + $nib).".$zone";
 	my $rec = &getOrCreateRRs($name);
 	$rec->addRecord(65282, join("", @{$byNibble[$nib]}), $n3p->{ttl}, $n3p->{ts}, $n3p->{lo});
 	&makeGenericRecord($name, 65282, join("", @{$byNibble[$nib]}), $n3p->{ttl}, $n3p->{ts}, $n3p->{lo});
