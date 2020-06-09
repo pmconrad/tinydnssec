@@ -20,7 +20,7 @@ Build
 1. Download and unpack the original djbdns sources from
    http://cr.yp.to/djbdns/install.html .
 2. Download and apply the patches listed above.
-3. Download and unpack http://tinydnssec.org/tinydnssec-1.05-1.5.tar.bz2 in
+3. Download and unpack http://tinydnssec.org/tinydnssec-1.05-1.7.tar.bz2 in
    the top-level source directory.
 4. Apply djbdns-1.05-dnssec.patch.
 5. Install as per usual instructions (see http://cr.yp.to/djbdns/install.html ).
