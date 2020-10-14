@@ -1,0 +1,7 @@
+<SIZE> bytes, 1+0+4+1 records, response, authoritative, nxdomain
+query: A kyle.dnssec.vip
+authority: dnssec.vip 3600 SOA ns1.dnssec.vip root.dnssec.vip <TIME> 3600 300 3600000 3600
+authority: dnssec.vip 3600 RRSIG SOA 7 2 3600 <TIME> <TIME> 44495 dnssec.vip <SIG>
+authority: tvf7qha0g0bkodf3aqmobmg02fnq7fd9.dnssec.vip 3600 NSEC3 1 0 1 AABBCCDDEEFF nhevdbebnkql94o57238pse2mi7dci9q A NS SOA MX RRSIG DNSKEY NSEC3PARAM
+authority: tvf7qha0g0bkodf3aqmobmg02fnq7fd9.dnssec.vip 3600 RRSIG NSEC3 7 3 3600 <TIME> <TIME> 44495 dnssec.vip <SIG>
+additional: . 0 OPT 512 0 0 8000
